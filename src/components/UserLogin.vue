@@ -77,7 +77,7 @@
     mounted() {},
     methods: {
       login() {
-        AjaxService.post('/hello',
+        AjaxService.post('hello',
         {
           userName: this.loginForm.username,
           pass: this.loginForm.password
