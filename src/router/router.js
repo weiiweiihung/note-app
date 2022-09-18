@@ -6,6 +6,10 @@ Vue.use(Router)
 export const Routes= [
     {
         path:'/',
+        component:()=> import('@/components/HelloWorld.vue'),
+    },
+    {
+        path:'/TodoApp',
         component:()=> import('@/components/TodoApp.vue'),
     }
 ]
