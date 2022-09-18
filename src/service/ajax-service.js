@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const AjsxService = {
-    async post(url, data, callBack, errorCallBack, urlParm){
+    async post(url, data, callBack, errorCallBack){
         await axios.post(url, data, {
             headers: {
                 targetURL: window.location.href,
@@ -11,10 +11,8 @@ const AjsxService = {
             callBack(res.data);
         }).catch((err)=>{
             if(errorCallBack){
-                errorCallBack(error);
+                errorCallBack(err);
             }
-        }).then((final)=>{
-
         });
     }
 } 

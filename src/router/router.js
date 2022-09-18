@@ -11,6 +11,10 @@ export const Routes= [
     {
         path:'/TodoApp',
         component:()=> import('@/components/TodoApp.vue'),
+    },
+    {
+        path:'/UserLogin',
+        component:()=> import('@/components/UserLogin.vue'),
     }
 ]
 
