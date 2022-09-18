@@ -20,7 +20,7 @@ export const Routes= [
 
 const createRouter = () => new Router({
     mode:'history',
-    base:'welcomeTodoApp',
+    base: process.env.VUE_APP_BASE_URL,
     routes:Routes,
 })
 

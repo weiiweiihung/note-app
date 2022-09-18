@@ -53,6 +53,8 @@
   </template>
   
   <script>
+  import AjaxService from '@/service/ajax-service'
+
   export default {
     data() {
       return {
@@ -75,7 +77,22 @@
     mounted() {},
     methods: {
       login() {
-        this.$router.push("/homepage");
+        AjaxService.post('/hello',
+        {
+          userName: this.loginForm.username,
+          pass: this.loginForm.password
+        },
+        (response) => {
+            console.log(response);
+            console.log('response: '+process.env.VUE_APP_BASE_API);
+        },
+            (error) => {
+              console.log(error)
+              console.log('err: '+process.env.VUE_APP_BASE_API);
+                //MessageService.showSystemError();
+            }
+        );
+        //this.$router.push("/homepage");
       },
     },
   };

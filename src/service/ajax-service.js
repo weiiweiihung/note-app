@@ -1,8 +1,8 @@
 import axios from "axios";
 
-const AjsxService = {
+const AjaxService = {
     async post(url, data, callBack, errorCallBack){
-        await axios.post(url, data, {
+        await axios.post(`${process.env.VUE_APP_BASE_API + url}`, data, {
             headers: {
                 targetURL: window.location.href,
                 pageAction: window.location.pathname
@@ -16,3 +16,5 @@ const AjsxService = {
         });
     }
 } 
+
+export default AjaxService;
