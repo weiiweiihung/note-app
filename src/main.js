@@ -1,8 +1,12 @@
 import Vue from 'vue'
 import App from './App.vue'
-
-Vue.config.productionTip = false
+import 'bootstrap/dist/css/bootstrap.min.css'
+import '@fortawesome/fontawesome-free/css/all.css'
+import '@fortawesome/fontawesome-free/js/all.js'
+import router from './router/router.js'
 
 new Vue({
-  render: h => h(App),
+    router,
+    render:s =>s(App)
 }).$mount('#app')
+
