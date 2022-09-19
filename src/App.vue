@@ -3,6 +3,7 @@
     <div id="app">
       <router-view />
     </div>
+    <notifications group="topRight" />
   </v-app>
 </template>
 

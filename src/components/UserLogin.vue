@@ -54,6 +54,7 @@
   
   <script>
   import AjaxService from '@/service/ajax-service'
+  import MessageService from '@/service/message-service'
 
   export default {
     data() {
@@ -83,8 +84,15 @@
           pass: this.loginForm.password
         },
         (response) => {
-            console.log(response);
-            console.log('response: '+process.env.VUE_APP_BASE_API);
+          if(response==='M000'){
+            this.$router.push('/TodoApp')
+          }
+           else {
+            MessageService.showError();
+          }
+          console.log(response);
+          console.log('response: '+process.env.VUE_APP_BASE_API);
+
         },
             (error) => {
               console.log(error)
