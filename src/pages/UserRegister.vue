@@ -6,47 +6,95 @@
   
         <!-- 表單區域 -->
         <v-slide-y-transition appear>
-          <v-form ref="loginFormRef" class="login_form">
-            <!-- 使用者名稱 -->
-            <v-text-field
-              v-model="loginForm.username"
-              class="mt-10"
+          <v-container fluid>
+						<v-row>
+						<v-col cols="12">
+							<v-text-field
+              v-model="loginForm.custName"
+							label="請輸入姓名"
+							value=""
+              filled
+              dense
               color="secondary"
               :rules="rules.requiredNameRule"
-              label="帳號"
-              placeholder="請輸入使用者帳號"
-              prepend-icon="mdi-face"
-              autocomplete="off"
-              persistent-placeholder
-              @keyup="loginForm.username = loginForm.username.replace(/\s+/g, '')"
-            />
-            <v-text-field
+							></v-text-field>
+						</v-col>
+						</v-row>					
+            <v-row>
+						
+						<v-col cols="12">
+							<v-text-field
+              v-model="loginForm.username"
+							label="請輸入Email，未來這會是您的會員帳號"
+							value=""
+              type="email"
+              filled
+              dense
+              color="secondary"
+              :rules="rules.requiredMailRule"
+							></v-text-field>
+						</v-col>
+						</v-row>
+
+						<v-row>
+						<v-col cols="12">
+							<v-text-field
               v-model="loginForm.password"
-              class="mb-8"
+							label="請輸入密碼"
+							value=""
+              filled
+              dense
+              autocomplete="off"
+              persistent-Outlined
               color="secondary"
               :rules="rules.requiredPasswordRule"
               :type="showPassword ? 'text' : 'password'"
-              label="密碼"
-              placeholder="請輸入密碼"
-              prepend-icon="mdi-lock-outline"
-              autocomplete="off"
-              persistent-placeholder
               :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
               @keyup="loginForm.password = loginForm.password.replace(/\s+/g, '')"
               @click:append="showPassword = !showPassword"
-            />
-            <!-- 按鈕 -->
-            <v-col class="d-flex justify-end">
-              <v-btn
+							></v-text-field>
+						</v-col>
+						</v-row>
+					
+						<v-row>
+						<v-col cols="12">
+							<v-text-field
+              v-model="loginForm.custBirth"
+							label="您的出生西元年月日"
+							value=""
+              filled
+              dense
+              color="secondary"
+              :rules="rules.requiredBirthRule"
+							></v-text-field>
+						</v-col>
+						</v-row>
+
+            <v-row>
+						<v-col cols="12">
+							<v-text-field
+              v-model="loginForm.custCell"
+							label="您的手機號碼"
+							value=""
+              filled
+              dense
+              color="secondary"
+              :rules="rules.requiredCellRule"
+							></v-text-field>
+						</v-col>
+						</v-row>
+
+            <v-col class="d-flex justify-center">
+              <v-btn block
                 depressed
                 color="primary"
                 class="v-btn--text"
-                @click="login()"
-              >
-                登入
+                @click="addUser()"
+              > 註冊
               </v-btn>
             </v-col>
-          </v-form>
+
+					</v-container>          
         </v-slide-y-transition>
       </div>
     </div>
@@ -66,24 +114,34 @@
         loginForm: {
           username: "",
           password: "",
+          custName:"",
+          custCell:"",
+          custBirth:"",
         },
         // 驗證物件
         rules: {
-          requiredNameRule: [(v) => !!v || "員工編號為必填欄位"],
+          requiredNameRule: [(v) => !!v || "姓名為必填欄位"],
           requiredPasswordRule: [(v) => !!v || "密碼為必填欄位"],
+          requiredMailRule: [v => /.+@.+/.test(v) || 'Email格式不正確'],
+          requiredBirthRule: [v => /^[0-9]+$/.test(v) || "生日格式不正確，需為: ｙｙｙｙＭＭｄｄ"],
+          requiredCellRule: [v => /^[0-9]+$/.test(v) || "手機格式不正確，需為: ｙｙｙｙＭＭｄｄ"],
         },
       };
     },
     watch: {},
     mounted() {},
     methods: {
-      login() {
-        AjaxService.post('hello',
+      addUser() {
+        AjaxService.post('NOTE010002',
         {
           userName: this.loginForm.username,
-          pass: this.loginForm.password
+          pass: this.loginForm.password,
+          cCustName: this.loginForm.custName,
+          cCustCell: this.loginForm.custCell,
+          cCustBirth: this.loginForm.custBirth,
         },
         (response) => {
+          console.log('response: '+response)
           if(response==='M000'){
             this.$router.push('/TodoApp')
           }
@@ -115,7 +173,7 @@
   
   .login_box {
     width: 450px;
-    height: 300px;
+    height: 600px;
     background-color: #e8ecf0;
     border-radius: 3px;
     position: absolute;

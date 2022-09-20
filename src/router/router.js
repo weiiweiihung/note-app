@@ -10,11 +10,16 @@ export const Routes= [
     },
     {
         path:'/TodoApp',
-        component:()=> import('@/components/TodoApp.vue'),
+        component:()=> import('@/pages/TodoApp.vue'),
     },
     {
         path:'/UserLogin',
-        component:()=> import('@/components/UserLogin.vue'),
+        component:()=> import('@/pages/UserLogin.vue'),
+    }
+    ,
+    {
+        path:'/UserRegister',
+        component:()=> import('@/pages/UserRegister.vue'),
     }
 ]
 

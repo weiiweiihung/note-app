@@ -67,11 +67,11 @@ export default {
       task:[
         {
           name: 'Steal banana from the store. ',
-          status: 'to-do'
+          status: 'in-progress'
         },
         {
-          name: 'Eat 1kg chocolate in 1 min. ',
-          status: 'in-progress'
+          name: 'feed pet. ',
+          status: 'to-do'
         }
       ]
     }
