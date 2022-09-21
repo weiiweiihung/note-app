@@ -92,7 +92,8 @@
             this.$router.push('/TodoApp')
           }
            else {
-            MessageService.showError();
+            MessageService.showLoginError();
+            this.$router.push('/UserRegister')
           }
           console.log(response);
           console.log('response: '+process.env.VUE_APP_BASE_API);

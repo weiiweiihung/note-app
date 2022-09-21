@@ -143,10 +143,11 @@
         (response) => {
           console.log('response: '+response)
           if(response==='M000'){
-            this.$router.push('/TodoApp')
+            MessageService.showAddSucc();
+            this.$router.push('/UserLogin')
           }
            else {
-            MessageService.showError();
+            MessageService.showAddError();
           }
           console.log(response);
           console.log('response: '+process.env.VUE_APP_BASE_API);
