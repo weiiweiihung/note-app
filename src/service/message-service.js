@@ -15,6 +15,16 @@ const MessageService = {
             type: 'red'
         });
     },
+    showReqHaveToWrite(){
+        let defaultTitle = '必填項目未填寫';
+        let message = '請再次輸入';
+        Vue.notify({
+            group: 'topRight',
+            title: defaultTitle,
+            text: message,
+            type: 'red'
+        });
+    },
     showAddError(){
         let defaultTitle = '新增失敗';
         let message = '請再次輸入';

@@ -58,7 +58,53 @@
 					
 						<v-row>
 						<v-col cols="12">
-							<v-text-field
+              <v-menu
+                ref="menu"
+                v-model="menu"
+                :close-on-content-click="false"
+                :return-value.sync="date"
+                transition="scale-transition"
+                offset-y
+                min-width="auto"
+              >
+                <template v-slot:activator="{ on, attrs }">
+                  <v-text-field
+                    v-model="loginForm.custBirth"
+                    label="您的生日"
+                    prepend-icon="mdi-calendar"
+                    readonly
+                    v-bind="attrs"
+                    v-on="on"
+                    filled
+                    dense
+                    color="secondary"
+                    :rules="rules.requiredBirthRule"
+                  ></v-text-field>
+                </template>
+                <v-date-picker
+                  v-model="loginForm.custBirth"
+                  no-title
+                  scrollable
+                >
+                <v-spacer></v-spacer>
+                <v-btn
+                  text
+                  color="primary"
+                  @click="menu = false"
+                >
+                Cancel
+                </v-btn>
+                <v-btn
+                  text
+                  color="primary"
+                  @click="$refs.menu.save(date)"
+                >
+                OK
+                  </v-btn>
+                </v-date-picker>
+              </v-menu>
+
+							<!-- <v-text-field
               v-model="loginForm.custBirth"
 							label="您的出生西元年月日"
 							value=""
@@ -66,7 +112,7 @@
               dense
               color="secondary"
               :rules="rules.requiredBirthRule"
-							></v-text-field>
+							></v-text-field> -->
 						</v-col>
 						</v-row>
 
@@ -123,9 +169,11 @@
           requiredNameRule: [(v) => !!v || "姓名為必填欄位"],
           requiredPasswordRule: [(v) => !!v || "密碼為必填欄位"],
           requiredMailRule: [v => /.+@.+/.test(v) || 'Email格式不正確'],
-          requiredBirthRule: [v => /^[0-9]+$/.test(v) || "生日格式不正確，需為: ｙｙｙｙＭＭｄｄ"],
-          requiredCellRule: [v => /^[0-9]+$/.test(v) || "手機格式不正確，需為: ｙｙｙｙＭＭｄｄ"],
+          requiredBirthRule: [(v) => !!v || "生日為必填欄位"],
+          requiredCellRule: [v => /^[0-9]+$/.test(v) || "手機格式不正確，需為: 0900000000"],
         },
+        menu:[],
+        date:[],
       };
     },
     watch: {},
@@ -136,21 +184,23 @@
         {
           userName: this.loginForm.username,
           pass: this.loginForm.password,
-          cCustName: this.loginForm.custName,
-          cCustCell: this.loginForm.custCell,
-          cCustBirth: this.loginForm.custBirth,
+          custName: this.loginForm.custName,
+          custCell: this.loginForm.custCell,
+          custBirth: this.loginForm.custBirth,
         },
         (response) => {
-          console.log('response: '+response)
-          if(response==='M000'){
+console.log('response: '+response)
+          if(response==='N0100021'){ //新增成功
             MessageService.showAddSucc();
             this.$router.push('/UserLogin')
           }
-           else {
+          if(response==='N0100023'){ //新增異常
+            MessageService.showReqHaveToWrite();
+          }
+          if(response==='N0100022'){//新增失敗
             MessageService.showAddError();
           }
-          console.log(response);
-          console.log('response: '+process.env.VUE_APP_BASE_API);
+          console.log('process.env: '+process.env.VUE_APP_BASE_API);
 
         },
             (error) => {
