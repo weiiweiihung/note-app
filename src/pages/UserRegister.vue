@@ -189,15 +189,14 @@
           custBirth: this.loginForm.custBirth,
         },
         (response) => {
-console.log('response: '+response)
-          if(response==='N0100021'){ //新增成功
+          if(response.rc==='N0100021'){ //新增成功
             MessageService.showAddSucc();
             this.$router.push('/UserLogin')
           }
-          if(response==='N0100023'){ //新增異常
+          if(response.rc==='N0100023'){ //新增異常
             MessageService.showReqHaveToWrite();
           }
-          if(response==='N0100022'){//新增失敗
+          if(response.rc==='N0100022'){//新增失敗
             MessageService.showAddError();
           }
           console.log('process.env: '+process.env.VUE_APP_BASE_API);

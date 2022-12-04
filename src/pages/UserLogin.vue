@@ -88,8 +88,7 @@
           pass: this.loginForm.password
         },
         (response) => {
-console.log('response: '+response.env)          
-          if(response==='N0100011'){  //登入成功
+          if(response.rc==='N0100011'){  //登入成功
             this.$router.push('/TodoApp')
           }
            else {
@@ -97,7 +96,7 @@ console.log('response: '+response.env)
             this.$router.push('/UserRegister')
           }
           console.log('process.env: '+process.env.VUE_APP_BASE_API);
-          
+
         },
             (error) => {
               console.log(error)
